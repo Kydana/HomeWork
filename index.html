@@ -60,11 +60,51 @@
           <button class="add-form-button">Написать</button>
         </div>
       </div>
-    </div>   
+    </div>
 </body>
 <script>
-    "use strict";
-    // Код писать здесь
-    console.log("It works!");
+    const button = document.querySelector(".add-form-button");
+    const input = document.querySelector(".add-form-name");
+    const textarea = document.querySelector(".add-form-text");
+    const list = document.querySelector(".comments");
+
+    button.addEventListener("click", () => {
+        const name = input.value.trim();
+        const text = textarea.value.trim();
+
+        if (!name || !text) {
+            alert("Заполните все поля!");
+        return;
+        }
+
+        const now = new Date();
+        const dateString = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear().toString().slice(-2)} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+        const newComment = document.createElement("li");
+        newComment.className = "comment";
+        newComment.innerHTML = `
+        <div class="comment-header">
+            <div>${name}</div>
+            <div>${dateString}</div>
+        </div>
+        <div class="comment-body">
+            <div class="comment-text">
+                ${text}
+            </div>
+        </div>
+        <div class="comment-footer">
+            <div class="likes">
+            <span class="likes-counter">0</span>
+            <button class="like-button"></button>
+            </div>
+        </div>
+        `;
+
+    list.appendChild(newComment);
+
+    input.value = "";
+    textarea.value = "";
+      // console.log("It works!"); 
+  });
 </script>
 </html>
