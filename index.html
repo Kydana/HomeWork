@@ -9,7 +9,7 @@
 <body>
     <div class="container">
       <ul class="comments">
-        <li class="comment">
+        <!-- <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
             <div>12.02.22 12:18</div>
@@ -42,7 +42,7 @@
               <button class="like-button -active-like"></button>
             </div>
           </div>
-        </li>
+        </li> -->
       </ul>
       <div class="add-form">
         <input
@@ -64,6 +64,14 @@
 </body>
 
 <script>
+
+    const input = document.querySelector(".add-form-name");
+    const textarea = document.querySelector(".add-form-text");
+
+    const sanitizeHtml = (value) => {
+        return value.replaceAll("<", "&lt;").replaceAll(">", "&lt;");
+    }
+
     const comments = [
         {
             name: "Глеб Фокин",
@@ -110,7 +118,9 @@
         const likeButtons = document.querySelectorAll(".like-button");
 
         for (const likeButton of likeButtons) {
-            likeButton.addEventListener("click", () => {
+            likeButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+
                 const index = likeButton.dataset.index;
                 const comment = comments[index];
 
@@ -121,19 +131,30 @@
                 renderComments();
             });
         }
+
+        const commentsElements = document.querySelectorAll(".comment");
+
+        for (const commentElement of commentsElements) {
+            commentElement.addEventListener("click", () => {
+                const currentComment = comments [commentElement.dataset.index];
+                textarea.value = `${currentComment.name}: ${currentComment.text}`;
+            });
+        }
     };
 
     renderComments();
 
     const button = document.querySelector(".add-form-button");
-    const input = document.querySelector(".add-form-name");
-    const textarea = document.querySelector(".add-form-text");
 
     button.addEventListener("click", () => {
+        if (!input.value  || !textarea.value) {
+            return;
+        }
+
         const newComment = {
-            name: input.value,
+            name: sanitizeHtml(input.value),
             date: new Date(),
-            text: textarea.value,
+            text: sanitizeHtml(textarea.value),
             likes: 0,
             isLiked: false,
         };
