@@ -1,8 +1,6 @@
 import { comments } from "./comments.js";
 import { initLikeListeners, initReplyListeners } from "./init.js";
 
-// const textarea = document.querySelector(".add-form-text");
-
 export const renderComments = () => {
     const list = document.querySelector(".comments");
 
