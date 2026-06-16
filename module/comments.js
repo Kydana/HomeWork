@@ -1,4 +1,4 @@
-export const comments = [
+export let comments = [
     // {
     //     name: "Глеб Фокин",
     //     date: new Date(),
@@ -15,6 +15,6 @@ export const comments = [
     // }
 ];
 
-export const updateComments = (newComments) => {
-    comments = newComments;
+export const updateComments = ("newComments") => {
+    comments = "newComments",
 }

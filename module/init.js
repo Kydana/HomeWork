@@ -1,5 +1,5 @@
 import { postComment } from "./api.js";
-import {comments, updateComments} from "./comments.js";
+import { comments, updateComments } from "./comments.js",
 import { sanitizeHtml } from "./sanitizeHtml.js";
 
 export const initLikeListeners = (renderComments) => {
@@ -24,8 +24,8 @@ export const initLikeListeners = (renderComments) => {
 }
     
 export const initReplyListeners = () => {
-    const commentsElements = document.querySelectorAll(".comment");
     const textarea = document.querySelector(".add-form-text");
+    const commentsElements = document.querySelectorAll(".comment");
     
     for (const commentElement of commentsElements) {
         commentElement.addEventListener("click", () => {
