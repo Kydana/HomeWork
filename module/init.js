@@ -46,25 +46,46 @@ export const initAddCommentListener = (renderComments) => {
             return;
         }
 
-        // const newComment = {
-        //     name: sanitizeHtml(input.value),
-        //     date: new Date(),
-        //     text: sanitizeHtml(textarea.value),
-        //     likes: 0,
-        //     isLiked: false,
-        // };
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
+        // button.disabled = true
+        // button.textContent = 'Комментарий добавляется'
 
         postComment(sanitizeHtml(textarea.value), sanitizeHtml(input.value),).then(
         (data) => {
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+            // button.disabled = false
+            // button.textContent = 'Написать'
+
             updateComments(data);
             renderComments()
             input.value = ''
             textarea.value = ''
         })
+        .catch((error) => {
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+            
+            if(error.message === "Failed to fetch") {
+                alert('Нет интернета, попробуйте снова')
+            }
 
-        // comments.push(newComment);
-        // renderComments();
-        // input.value = "";
-        // textarea.value = "";
+            if(error.message === "Ошибка сервера") {
+                alert('Ошибка сервера')
+            }
+
+            if (error.message === "неверный запрос") {
+                alert('Имя и комментарий должны быть не короче 3х символов')
+
+                input.classList.add('-error')
+                textarea.classList.add('-error')
+
+                setTimeout(() => {
+                    input.classList.remove('-error')
+                    textarea.classList.remove('-error')
+                }, 2000)
+            }
+        })
     });
 }
