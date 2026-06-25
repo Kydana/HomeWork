@@ -46,25 +46,22 @@ export const initAddCommentListener = (renderComments) => {
             return;
         }
 
-        // const newComment = {
-        //     name: sanitizeHtml(input.value),
-        //     date: new Date(),
-        //     text: sanitizeHtml(textarea.value),
-        //     likes: 0,
-        //     isLiked: false,
-        // };
+        // button.disabled = true
+        // button.textContent = 'ПОДОЖДИ...'
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
 
         postComment(sanitizeHtml(textarea.value), sanitizeHtml(input.value),).then(
         (data) => {
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+            // button.disabled = false
+            // button.textContent = 'Написать'
+
             updateComments(data);
             renderComments()
             input.value = ''
             textarea.value = ''
         })
-
-        // comments.push(newComment);
-        // renderComments();
-        // input.value = "";
-        // textarea.value = "";
     });
 }
