@@ -46,14 +46,6 @@ export const initAddCommentListener = (renderComments) => {
             return;
         }
 
-        // const newComment = {
-        //     name: sanitizeHtml(input.value),
-        //     date: new Date(),
-        //     text: sanitizeHtml(textarea.value),
-        //     likes: 0,
-        //     isLiked: false,
-        // };
-
         postComment(sanitizeHtml(textarea.value), sanitizeHtml(input.value),).then(
         (data) => {
             updateComments(data);
@@ -61,10 +53,5 @@ export const initAddCommentListener = (renderComments) => {
             input.value = ''
             textarea.value = ''
         })
-
-        // comments.push(newComment);
-        // renderComments();
-        // input.value = "";
-        // textarea.value = "";
     });
 }
