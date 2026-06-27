@@ -6,7 +6,7 @@ import { renderComments } from './module/renderComments.js'
 document.querySelector('.comments').innerHTML = 
     'Пожалуйста подождите, загружаю комментарий...'
 
-fetchComments().then(data => {
+    fetchComments().then(data => {
     updateComments(data)
     renderComments()
 })
