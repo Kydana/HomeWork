@@ -46,8 +46,21 @@ export const initAddCommentListener = (renderComments) => {
             return;
         }
 
+<<<<<<< HEAD
+=======
+        // button.disabled = true
+        // button.textContent = 'ПОДОЖДИ...'
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
+
+>>>>>>> f69f5d326a8aab4e2bd48211d27a1c610c88eef8
         postComment(sanitizeHtml(textarea.value), sanitizeHtml(input.value),).then(
         (data) => {
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+            // button.disabled = false
+            // button.textContent = 'Написать'
+
             updateComments(data);
             renderComments()
             input.value = ''
