@@ -48,15 +48,11 @@ export const initAddCommentListener = (renderComments) => {
 
         document.querySelector('.form-loading').style.display = 'block'
         document.querySelector('.add-form').style.display = 'none'
-        // button.disabled = true
-        // button.textContent = 'Комментарий добавляется'
 
         postComment(sanitizeHtml(textarea.value), sanitizeHtml(input.value),).then(
         (data) => {
             document.querySelector('.form-loading').style.display = 'none'
             document.querySelector('.add-form').style.display = 'flex'
-            // button.disabled = false
-            // button.textContent = 'Написать'
 
             updateComments(data);
             renderComments()
@@ -66,7 +62,7 @@ export const initAddCommentListener = (renderComments) => {
         .catch((error) => {
             document.querySelector('.form-loading').style.display = 'none'
             document.querySelector('.add-form').style.display = 'flex'
-            
+
             if(error.message === "Failed to fetch") {
                 alert('Нет интернета, попробуйте снова')
             }
