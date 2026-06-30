@@ -1,13 +1,19 @@
-import { fetchComments } from './module/api.js';
-import { updateComments } from './module/comments.js';
-import { initAddCommentListener } from './module/init.js'
+import { fetchComments } from './module/api.js'
+import { updateComments } from './module/comments.js'
 import { renderComments } from './module/renderComments.js'
 
-document.querySelector('.comments').innerHTML = 'Подожди дожди дождии...'
+export const fetchAndRenderComments = (isFirstLoading) => {
 
-fetchComments().then(data => {
-    updateComments(data)
-    renderComments()
-})
+    if (isFirstLoading) {
+        document.querySelector('.container').innerHTML = 
+            `<p>Пожалуйста подождите, загружаю комментарий...</p>`
+    } else {
+        
+    }
+    fetchComments().then(data => {
+        updateComments(data)
+        renderComments()
+    })
+}
 
-initAddCommentListener(renderComments);
+fetchAndRenderComments(true)
